@@ -1,0 +1,227 @@
+import pygame, simpleGE, random, json
+
+class Game(simpleGE.Scene):
+    def __init__(self):
+        super().__init__()
+    
+        set background image 
+        initialize timer 
+        set timer 
+        set score
+        set number of lives
+        call and initialize  numlives 
+        call and initialize score 
+        call and initialize zombies 
+        set the number of bullets 
+        call and initialize bullets
+        set current bullet count 
+        set bullets as array
+        set zombies as array
+        set sprites
+        
+        
+    def processEvent(self, event):
+        check if key are pressed to shoot bullets
+        
+    def process(self):
+    	check if soldier collides with zombies
+    		subtract one life from soldier
+    		reset zombie 
+    		print lives
+    		check if bullet collides with bullet
+    		reset zombie 
+    		play sound 
+    		add one to score 
+    		print score
+    	print timer left on screen 
+    		if time < 0
+    		end game 
+    		
+
+class Intro(simpleGE.Scene):
+    def __init__(self, score = 0):
+        super().__init__()
+         define score 
+        set game status to initial quit
+        set score
+        make start button
+        make quit button
+        make label for game instructions 
+        if game is played make try again button 
+        make laber for score
+        set sprites 
+       
+
+    def process(self):
+         if self.btnPlay.clicked:
+        	set game status to play 
+        	stop game 
+        	then stop game
+        if self.btnQuit.clicked:
+        	set game status to quit 
+        	stop game
+
+            
+
+class leaderBoard(simpleGE.Scene):
+    def __init__(self, score = 0):
+        super().__init__()
+        set game status to initial quit
+        set score
+        make start button
+        make button to enter name 
+        make quit button
+        make label for each score slot
+         make label for each name score slot
+        if game is played make try again button 
+        make laber for score
+        set sprites 
+       
+               
+    def process(self):
+        if self.btnPlay.clicked:
+        	set game status to play 
+        	stop game 
+        	then stop game
+        if self.btnQuit.clicked:
+        	set game status to quit 
+        	stop game
+        if self.btnName.clicked:
+            ask for name 
+            save name and score
+            pass name and score to score adder 
+    
+    # def scoreAdder(self, playerName, score, Hscores):
+    	print scores and names in appropriate score slots 
+    	save new score in json file 
+        
+          
+    def loadScores():
+    	read json file 
+    	create array of names and scores from json file 
+    	
+            
+class LblScore(simpleGE.Label):
+    def __init__(self):
+        super().__init__()
+        initize score
+        set score to 0
+        place score on screen 
+             
+class LblTime(simpleGE.Label):
+    def __init__(self):
+        super().__init__()
+        initialize timer
+        place timer in screen 
+        
+
+class Soldier(simpleGE.Sprite):
+    def __init__(self, scene):
+        super().__init__(scene)
+        create and initalize solder 
+        pass scene 
+        set soldier image and size
+        set inital position  
+        set soldier move speed
+    
+    
+    def process(self):
+       check and see what arrow key is pressed
+         	move zombie movespeed 
+         	rotate rombie 
+    	check if x is pressed
+    		create stream of bullets in an array
+    		
+
+class Bullet(simpleGE.Sprite):
+    def __init__(self, scene, parent):
+        super().__init__(scene)
+        set size and color of bullets
+        check bound of bullet 
+        set bullet to hide 
+        
+    def fire(self):
+    	show bullet 
+    	give bullet position 
+    	give bullet an angle 
+    	give bullet a movespeed 
+    	
+        
+    
+class numLives(simpleGE.Label):
+     def __init__(self): 
+         super().__init__()
+         set and make label for lives 
+     
+    
+class Zombie(simpleGE.Sprite):
+    def __init__(self,scene):
+        super().__init__(scene)   
+        pass scene
+        set zombie image
+        set zombie size  
+        reset zombie
+        
+    def reset(self):
+    	select a random number between 0-3
+    	depending on numbe pick a side of the screen where zombie starts 
+    	change zombie x or y depending on side by random speed 
+    	
+        side = random.randint(0,3)
+        if side == 0:
+            # top            
+            self.x = random.randint(0, self.screen.get_width())
+            self.y = random.randint(40,60)
+            self.dy += random.randint(1,3)
+        elif side == 1:
+            # left
+            self.x = random.randint(0,480)
+            self.y = random.randint(0, self.screen.get_height())
+            self.dx += random.randint(2, 4)
+        elif side == 2:
+            # bottom
+            self.x = random.randint(0, self.screen.get_width())
+            self.y = random.randint(550, 600)
+            self.dy += random.randint(-3, -1)
+        else:
+            # right
+            self.x = random.randint(400, 440)
+            self.y = random.randint(0, self.screen.get_height())
+            self.dx -= random.randint(1, 3)
+            
+        
+    # def checkBounds(self):
+    	check of zombie hits the side of screen 
+        
+        
+              
+    
+        
+        
+      
+def main():
+    keepGoing = True
+    score = 0
+    
+    while keepGoing:
+        intro = Intro(score)
+        intro.start()
+      
+def main():
+    keepGoing = True
+    score = 0
+    
+    while keepGoing:
+    	initialize and call intro 
+    	check if status = quit
+    		call leaderboard and pass score
+    		start leader board 
+    		if LeaderBoard.status =="quit":
+                keepGoing = False
+    			
+    	else
+    		call and initalize game
+    		start game 
+    		set score
+
+if __name__ == "__main__":
